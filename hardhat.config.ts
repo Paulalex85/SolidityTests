@@ -34,7 +34,7 @@ module.exports = {
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        process.env.PRIVATE_KEY_01 !== undefined ? [process.env.PRIVATE_KEY_01,process.env.PRIVATE_KEY_02] : [],
       // gas: 100000000,
       // gasPrice: 10000000000,
       // gasMultiplier: 2,
