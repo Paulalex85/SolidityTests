@@ -24,7 +24,7 @@ dotenvConfig({ path: resolve(__dirname, "./.env") });
  * 
  */
 module.exports = {
-  solidity: "0.6.0",
+  solidity: "0.6.8",
   networks: {
     hardhat: {
       forking: {
