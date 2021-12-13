@@ -35,7 +35,7 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "run_rinkeby": "hardhat run --network rinkeby",
+    "run_testnet": "hardhat run --network rinkeby",
     "run_local": "hardhat run",
     "typechain": "hardhat typechain"
   }
