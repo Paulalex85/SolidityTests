@@ -17,6 +17,10 @@
     "target": "es6"
   },
   "exclude": ["node_modules"],
-  "files": ["./hardhat.config.ts"],
-  "include": ["scripts/**/*.ts", "test/**/*.ts", "typechain/**/*.d.ts", "typechain/**/*.ts"]
+  "files": [
+    "./hardhat.config.ts"
+  ],
+  "include": [
+    "ethernaut/scripts/**/*.ts",
+    "ethernaut/test/**/*.ts", "typechain/**/*.d.ts", "typechain/**/*.ts"]
 }
