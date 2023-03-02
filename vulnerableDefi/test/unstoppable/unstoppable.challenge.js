@@ -44,7 +44,7 @@ describe('[Challenge] Unstoppable', function () {
     });
 
     it('Execution', async function () {
-        /** CODE YOUR SOLUTION HERE */
+        await this.token.connect(attacker).transfer(this.pool.address, 1);
     });
 
     after(async function () {

