@@ -10,7 +10,7 @@ contract Level21 is Script {
     address _caller = vm.addr(vm.envUint("PRIVATE_KEY"));
 
     function run() public {
-        Shop _instance = Shop(payable(vm.envAddress("LVL26_ADDR")));
+//        Shop _instance = Shop(payable(vm.envAddress("LVL26_ADDR")));
         vm.startBroadcast(vm.envUint("PRIVATE_KEY"));
 
 //        uint256 price = _instance.price();
