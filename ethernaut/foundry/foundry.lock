@@ -1,0 +1,23 @@
+{
+  "../../vulnerableDefi/foundry/lib/forge-std": {
+    "rev": "07263d193d621c4b2b0ce8b4d54af58f6957d97d"
+  },
+  "../../vulnerableDefi/foundry/lib/openzeppelin-contracts": {
+    "rev": "dc44c9f1a4c3b10af99492eed84f83ed244203f6"
+  },
+  "../../vulnerableDefi/foundry/lib/openzeppelin-contracts-upgradeable": {
+    "rev": "f6febd79e2a3a17e26969dd0d450c6ebd64bf459"
+  },
+  "../../vulnerableDefi/foundry/lib/safe-contracts": {
+    "rev": "f3af2a9a24aa47faea3dbd8ebcdf665694975a0f"
+  },
+  "lib/forge-std": {
+    "rev": "07263d193d621c4b2b0ce8b4d54af58f6957d97d"
+  },
+  "lib/openzeppelin-contracts": {
+    "tag": {
+      "name": "v5.5.0",
+      "rev": "fcbae5394ae8ad52d8e580a3477db99814b9d565"
+    }
+  }
+}
